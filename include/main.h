@@ -37,6 +37,9 @@
 #include "api.h"
 #include "okapi/api.hpp"
 #include "devices.h"
+#include "pros/apix.h"
+
+extern const lv_img_dsc_t stretched_dog;
 
 /* add more includes here */
 

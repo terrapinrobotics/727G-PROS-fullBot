@@ -1,5 +1,4 @@
 #include "main.h"
-#include "pros/motors.h"
 
 #define FLYWHEEL_SPEED 100
 
@@ -9,8 +8,16 @@
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+
+LV_IMG_DECLARE(stretched_dog);
+
 void initialize() {
-	pros::lcd::initialize();
+
+	// cedric kat and hailley are to blame for this
+	lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
+	lv_img_set_src(img1, &stretched_dog);
+	lv_obj_align(img1, NULL, LV_ALIGN_CENTER, 0, 0);
+
 	// reset our inertial!
 	inertial.reset();
 	// set motor brake modes
