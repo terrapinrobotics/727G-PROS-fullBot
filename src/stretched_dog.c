@@ -1,6 +1,5 @@
 #include "pros/apix.h"
 
-
 #ifndef LV_ATTRIBUTE_MEM_ALIGN
 #define LV_ATTRIBUTE_MEM_ALIGN
 #endif
@@ -985,6 +984,7 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_IMG_STRETCHED_DOG uint8_t stretched_do
     0x39, 0x75, 0xb4, 0xfc, 0xbf, 0xe0, 0x1f, 0xff, 0xd9
 };
 
+// declare image
 const lv_img_dsc_t stretched_dog = {
   .header.cf = LV_IMG_CF_RAW_CHROMA_KEYED,
   .header.always_zero = 0,

@@ -2,6 +2,11 @@
 
 #define FLYWHEEL_SPEED 100
 
+using namespace okapi;
+
+
+
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -9,14 +14,20 @@
  * to keep execution time for this mode under a few seconds.
  */
 
+// display stretched_dog image on the screen using LVGL
 LV_IMG_DECLARE(stretched_dog);
 
-void initialize() {
+std::shared_ptr<okapi::OdomChassisController> chassis;
 
+void displayImage() {
+  lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
+  lv_img_set_src(img1, &stretched_dog);
+  lv_obj_align(img1, NULL, LV_ALIGN_CENTER, 0, 0);
+}
+
+void initialize() {
 	// cedric kat and hailley are to blame for this
-	lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
-	lv_img_set_src(img1, &stretched_dog);
-	lv_obj_align(img1, NULL, LV_ALIGN_CENTER, 0, 0);
+	displayImage();
 
 	// reset our inertial!
 	inertial.reset();
@@ -31,6 +42,18 @@ void initialize() {
 
 	// intake
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+
+	chassis = okapi::ChassisControllerBuilder()
+		.withMotors({4, 1}, {20, 2})
+		.withGains(
+			{0.001, 0, 0.0001}, // Distance controller gains
+			{0.001, 0, 0.0001}, // Turn controller gains
+			{0.001, 0, 0.0001}  // Angle controller gains (helps drive straight)
+		)
+		.withDimensions(okapi::AbstractMotor::gearset::green, {{4_in, 11_in}, okapi::imev5GreenTPR})
+		.withOdometry()
+		.buildOdometry();
+
 }
 
 /**
@@ -51,32 +74,11 @@ void disabled() {}
  */
 void competition_initialize() {}
 
-/**
- * Runs the user autonomous code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the autonomous
- * mode. Alternatively, this function may be called in initialize or opcontrol
- * for non-competition testing purposes.
- *
- * If the robot is disabled or communications is lost, the autonomous task
- * will be stopped. Re-enabling the robot will restart the task, not re-start it
- * from where it left off.
- */
-void autonomous() {}
 
-/**
- * Runs the operator control code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the operator
- * control mode.
- *
- * If no competition control is connected, this function will run immediately
- * following initialize().
- *
- * If the robot is disabled or communications is lost, the
- * operator control task will be stopped. Re-enabling the robot will restart the
- * task, not resume it from where it left off.
- */
+void autonomous() {
+	chassis->driveToPoint({1_ft, 1_ft});
+}
+
 void opcontrol() {
 	// to avoid using a task for piston delays, we'll have a variable
 	// that keeps track of how many ms have ellapsed since the last
