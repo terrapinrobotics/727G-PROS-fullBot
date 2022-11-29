@@ -38,11 +38,7 @@
 #include "okapi/api.hpp"
 #include "devices.h"
 
-/**
- * You should add more #includes here
- */
-//
-//#include "pros/api_legacy.h"
+/* add more includes here */
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do

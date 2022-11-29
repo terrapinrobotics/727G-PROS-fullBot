@@ -1,4 +1,7 @@
 #include "main.h"
+#include "pros/motors.h"
+
+#define FLYWHEEL_SPEED 100
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -8,6 +11,19 @@
  */
 void initialize() {
 	pros::lcd::initialize();
+	// reset our inertial!
+	inertial.reset();
+	// set motor brake modes
+	FL_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	FR_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	BL_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	BR_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+	// flywheel
+	flywheel.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
+
+	// intake
+	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 }
 
 /**
@@ -55,24 +71,82 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+	// to avoid using a task for piston delays, we'll have a variable
+	// that keeps track of how many ms have ellapsed since the last
+	// time we pressed the button
+
+	uint32_t last_press_indexer = 0;
+	bool indexer_state = false;
+
+	// expansions [a, b]
+	uint32_t last_press_expansions[2] = {0, 0};
+	bool expansion_state[2] = {false, false};
+
 	while (true) {
+
+		// fire discs when L1!
+        if (master.get_digital(DIGITAL_L1)) {
+			indexer.set_value(1);
+			indexer_state = true;
+			last_press_indexer = pros::millis();
+		}
+
+		if (indexer_state && pros::millis() - last_press_indexer > 100) {
+			// if >100 ms have passed
+			indexer.set_value(0);
+			indexer_state = false;
+		}
+
+		// expansion pneumatics
+        if (master.get_digital(DIGITAL_A)) {
+			expansion_left.set_value(1);
+			expansion_state[0] = true;
+			last_press_expansions[0] = pros::millis();
+		}
+
+		if (master.get_digital(DIGITAL_X)) {
+			expansion_right.set_value(1);
+			expansion_state[1] = true;
+			last_press_expansions[1] = pros::millis();
+		}
+
+		if (expansion_state[0] && pros::millis() - last_press_expansions[0] > 100) {
+			// if >100 ms have passed
+			expansion_left.set_value(0);
+			expansion_state[0] = false;
+		}
+
+		if (expansion_state[1] && pros::millis() - last_press_expansions[1] > 100) {
+			// if >100 ms have passed
+			expansion_right.set_value(0);
+			expansion_state[1] = false;
+		}
+
+		// flywheel
+		if (master.get_digital(DIGITAL_L2)) {
+			flywheel = FLYWHEEL_SPEED;
+		} else {
+			flywheel.brake();
+		}
+
+		// intake
+		if (master.get_digital(DIGITAL_R2)) {
+			intake = 100;
+		} else if (master.get_digital(DIGITAL_R1)) {
+			intake = -100;
+		} else {
+			intake.brake();
+		}
+
+		// drive!
 		int axis1 = master.get_analog(ANALOG_RIGHT_X);
 		int axis3 = master.get_analog(ANALOG_LEFT_Y);
 		int axis4 = master.get_analog(ANALOG_LEFT_X);
 
-		if (axis1 == 0 && axis3 == 0 && axis4 == 0) {
-			FL_mtr = 0;
-			BL_mtr = 0;
-			FR_mtr = 0;
-			BR_mtr = 0;
-		}
-
-		else {
-			FL_mtr = (axis3 + axis1 + axis4);
-			BL_mtr = (axis3 + axis1 - axis4);
-			FR_mtr = (axis3 - axis1 - axis4);
-			BR_mtr = (axis3 - axis1 + axis4);
-		}
+		FL_mtr = (axis3 + axis1 + axis4);
+		BL_mtr = (axis3 + axis1 - axis4);
+		FR_mtr = (axis3 - axis1 - axis4);
+		BR_mtr = (axis3 - axis1 + axis4);
 
 		pros::delay(20);
 	}
