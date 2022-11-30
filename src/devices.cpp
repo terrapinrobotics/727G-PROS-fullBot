@@ -5,10 +5,11 @@
 pros::Controller master = pros::Controller(pros::E_CONTROLLER_MASTER);
 
 // chassis motors!
-pros::Motor FL_mtr = pros::Motor(4, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
+/*pros::Motor FL_mtr = pros::Motor(4, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
 pros::Motor FR_mtr = pros::Motor(20, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, false);
 pros::Motor BL_mtr = pros::Motor(1, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
 pros::Motor BR_mtr = pros::Motor(2, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, false);
+*/
 
 // flywheel
 pros::Motor flywheel_A = pros::Motor(3, pros::motor_gearset_e_t::E_MOTOR_GEARSET_06, false);

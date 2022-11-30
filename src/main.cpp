@@ -1,12 +1,9 @@
 #include "main.h"
+#include "arms/config.h"
 
 #define FLYWHEEL_SPEED 100
 
-using namespace okapi::literals;
-
 LV_IMG_DECLARE(stretched_dog);
-
-std::shared_ptr<okapi::OdomChassisController> chassis;
 
 void displayImage() {
   lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
@@ -20,6 +17,9 @@ void initialize() {
 
 	// reset our inertial!
 	inertial.reset();
+
+	arms::init();
+
 	// set motor brake modes
 	FL_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	FR_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
@@ -31,18 +31,6 @@ void initialize() {
 
 	// intake
 	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
-
-	chassis = okapi::ChassisControllerBuilder()
-		.withMotors({4, 1}, {20, 2})
-		.withGains(
-			{0.001, 0, 0.0001}, // Distance controller gains
-			{0.001, 0, 0.0001}, // Turn controller gains
-			{0.001, 0, 0.0001}  // Angle controller gains (helps drive straight)
-		)
-		.withDimensions(okapi::AbstractMotor::gearset::green, {{4_in, 11_in}, okapi::imev5GreenTPR})
-		.withOdometry()
-		.buildOdometry();
-
 }
 
 /**
@@ -65,7 +53,7 @@ void competition_initialize() {}
 
 
 void autonomous() {
-	chassis->driveToPoint({1_ft, 1_ft});
+	arms::chassis::turn(90);
 }
 
 void opcontrol() {

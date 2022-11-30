@@ -5,10 +5,12 @@
 
 extern pros::Controller master;
 
+/*
 extern pros::Motor FL_mtr;
 extern pros::Motor FR_mtr;
 extern pros::Motor BL_mtr;
 extern pros::Motor BR_mtr;
+*/
 
 extern pros::Motor_Group flywheel;
 
