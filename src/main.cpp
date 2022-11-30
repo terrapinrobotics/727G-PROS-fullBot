@@ -2,19 +2,8 @@
 
 #define FLYWHEEL_SPEED 100
 
-using namespace okapi;
+using namespace okapi::literals;
 
-
-
-
-/**
- * Runs initialization code. This occurs as soon as the program is started.
- *
- * All other competition modes are blocked by initialize; it is recommended
- * to keep execution time for this mode under a few seconds.
- */
-
-// display stretched_dog image on the screen using LVGL
 LV_IMG_DECLARE(stretched_dog);
 
 std::shared_ptr<okapi::OdomChassisController> chassis;
