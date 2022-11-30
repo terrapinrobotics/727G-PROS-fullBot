@@ -21,10 +21,12 @@ void initialize() {
 	arms::init();
 
 	// set motor brake modes
+	/*
 	FL_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	FR_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	BL_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 	BR_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	*/
 
 	// flywheel
 	flywheel.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
@@ -129,10 +131,12 @@ void opcontrol() {
 		int axis3 = master.get_analog(ANALOG_LEFT_Y);
 		int axis4 = master.get_analog(ANALOG_LEFT_X);
 
+		/*
 		FL_mtr = (axis3 + axis1 + axis4);
 		BL_mtr = (axis3 + axis1 - axis4);
 		FR_mtr = (axis3 - axis1 - axis4);
 		BR_mtr = (axis3 - axis1 + axis4);
+		*/
 
 		pros::delay(20);
 	}
