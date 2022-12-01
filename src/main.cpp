@@ -20,14 +20,6 @@ void initialize() {
 
 	arms::init();
 
-	// set motor brake modes
-	/*
-	FL_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	FR_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	BL_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	BR_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	*/
-
 	// flywheel
 	flywheel.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
 
@@ -55,10 +47,27 @@ void competition_initialize() {}
 
 
 void autonomous() {
+	// guide on ARMS:
+	// flags: ASYNC (non-blocking)
+	// THRU (no PID controller)
+	// RELATIVE (relative to current position)
+	// REVERSE (reverse robot heading when moving)
+	// combine with |
+	// example: arms::chassis::move({5, 8}, ASYNC | THRU); (coord (5, 8), async, no PID)
+
 	arms::chassis::turn(90);
 }
 
 void opcontrol() {
+	// disable ARMS PID during opcontrol! (allows use of PROS motors)
+	arms::pid::mode = DISABLE;
+
+	// create drive motors!
+	pros::Motor FL_mtr = pros::Motor(4, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
+	pros::Motor FR_mtr = pros::Motor(20, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, false);
+	pros::Motor BL_mtr = pros::Motor(1, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
+	pros::Motor BR_mtr = pros::Motor(2, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, false);
+
 	// to avoid using a task for piston delays, we'll have a variable
 	// that keeps track of how many ms have ellapsed since the last
 	// time we pressed the button
@@ -131,12 +140,10 @@ void opcontrol() {
 		int axis3 = master.get_analog(ANALOG_LEFT_Y);
 		int axis4 = master.get_analog(ANALOG_LEFT_X);
 
-		/*
 		FL_mtr = (axis3 + axis1 + axis4);
 		BL_mtr = (axis3 + axis1 - axis4);
 		FR_mtr = (axis3 - axis1 - axis4);
 		BR_mtr = (axis3 - axis1 + axis4);
-		*/
 
 		pros::delay(20);
 	}
