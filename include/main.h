@@ -38,6 +38,7 @@
 #include "ARMS/api.h"
 #include "devices.h"
 #include "pros/apix.h"
+#include "autons.h"
 
 /* add more includes here */
 

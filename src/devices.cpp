@@ -12,12 +12,12 @@ pros::Motor BR_mtr = pros::Motor(2, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18,
 */
 
 // flywheel
-pros::Motor flywheel_A = pros::Motor(3, pros::motor_gearset_e_t::E_MOTOR_GEARSET_06, false);
-pros::Motor flywheel_B = pros::Motor(7, pros::motor_gearset_e_t::E_MOTOR_GEARSET_06, true);
+pros::Motor flywheel_A = pros::Motor(3, pros::motor_gearset_e_t::E_MOTOR_GEARSET_06, false, pros::motor_encoder_units_e_t::E_MOTOR_ENCODER_DEGREES);
+pros::Motor flywheel_B = pros::Motor(7, pros::motor_gearset_e_t::E_MOTOR_GEARSET_06, true, pros::motor_encoder_units_e_t::E_MOTOR_ENCODER_DEGREES);
 pros::Motor_Group flywheel = pros::Motor_Group({flywheel_A, flywheel_B});
 
 // intake
-pros::Motor intake = pros::Motor(6, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
+pros::Motor intake = pros::Motor(6, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true, pros::motor_encoder_units_e_t::E_MOTOR_ENCODER_DEGREES);
 
 // pneumatics
 pros::ADIDigitalOut indexer = pros::ADIDigitalOut('A');
