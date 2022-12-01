@@ -51,6 +51,7 @@ void autonomous() {
 }
 
 void opcontrol() {
+
 	// disable ARMS PID during opcontrol! (allows use of PROS motors)
 	arms::pid::mode = DISABLE;
 
@@ -60,73 +61,7 @@ void opcontrol() {
 	pros::Motor BL_mtr = pros::Motor(1, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
 	pros::Motor BR_mtr = pros::Motor(2, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, false);
 
-	// to avoid using a task for piston delays, we'll have a variable
-	// that keeps track of how many ms have ellapsed since the last
-	// time we pressed the button
-
-	uint32_t last_press_indexer = 0;
-	bool indexer_state = false;
-
-	// expansions [a, b]
-	uint32_t last_press_expansions[2] = {0, 0};
-	bool expansion_state[2] = {false, false};
-
 	while (true) {
-
-		// fire discs when L1!
-        if (master.get_digital(DIGITAL_L1)) {
-			indexer.set_value(1);
-			indexer_state = true;
-			last_press_indexer = pros::millis();
-		}
-
-		if (indexer_state && pros::millis() - last_press_indexer > 100) {
-			// if >100 ms have passed
-			indexer.set_value(0);
-			indexer_state = false;
-		}
-
-		// expansion pneumatics
-        if (master.get_digital(DIGITAL_A)) {
-			expansion_left.set_value(1);
-			expansion_state[0] = true;
-			last_press_expansions[0] = pros::millis();
-		}
-
-		if (master.get_digital(DIGITAL_X)) {
-			expansion_right.set_value(1);
-			expansion_state[1] = true;
-			last_press_expansions[1] = pros::millis();
-		}
-
-		if (expansion_state[0] && pros::millis() - last_press_expansions[0] > 100) {
-			// if >100 ms have passed
-			expansion_left.set_value(0);
-			expansion_state[0] = false;
-		}
-
-		if (expansion_state[1] && pros::millis() - last_press_expansions[1] > 100) {
-			// if >100 ms have passed
-			expansion_right.set_value(0);
-			expansion_state[1] = false;
-		}
-
-		// flywheel
-		if (master.get_digital(DIGITAL_L2)) {
-			flywheel = FLYWHEEL_SPEED;
-		} else {
-			flywheel.brake();
-		}
-
-		// intake
-		if (master.get_digital(DIGITAL_R2)) {
-			intake = 100;
-		} else if (master.get_digital(DIGITAL_R1)) {
-			intake = -100;
-		} else {
-			intake.brake();
-		}
-
 		// drive!
 		int axis1 = master.get_analog(ANALOG_RIGHT_X);
 		int axis3 = master.get_analog(ANALOG_LEFT_Y);
