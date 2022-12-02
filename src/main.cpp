@@ -54,13 +54,19 @@ void autonomous() {
 void opcontrol() {
 	// disable ARMS PID during opcontrol! (allows use of PROS motors)
 	// this is a custom 727G function I added to ARMS for our specific use case
-	arms::chassis::disableChassisTask();
+	arms::chassis::chassisTaskEnabled = false;
 
 	// create drive motors!
 	pros::Motor FL_mtr = pros::Motor(4, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
 	pros::Motor FR_mtr = pros::Motor(20, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, false);
 	pros::Motor BL_mtr = pros::Motor(1, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
 	pros::Motor BR_mtr = pros::Motor(2, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, false);
+
+	//set brake modes
+	FL_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	FR_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	BL_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+	BR_mtr.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
 	// to avoid using a task for piston delays, we'll have a variable
 	// that keeps track of how many ms have ellapsed since the last
@@ -138,6 +144,8 @@ void opcontrol() {
 		BL_mtr = (axis3 + axis1 - axis4);
 		FR_mtr = (axis3 - axis1 - axis4);
 		BR_mtr = (axis3 - axis1 + axis4);
+
+		std::cout << "FL: " << (axis3+axis1+axis4) << std::endl;
 
 		pros::delay(20);
 	}

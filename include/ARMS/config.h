@@ -20,7 +20,7 @@ namespace arms {
 
 // Tracking wheel distances
 #define TRACK_WIDTH 11.5 		  // The distance between left and right wheels (or tracker wheels)
-#define MIDDLE_DISTANCE 0     // Distance from middle wheel to the robot turning center (7.5259966117)
+#define MIDDLE_DISTANCE 7.526     // Distance from middle wheel to the robot turning center (7.5259966117)
 
 // Sensors
 #define IMU_PORT 19                           // Port 0 for disabled
@@ -39,10 +39,10 @@ namespace arms {
 #define LINEAR_KI 0
 #define LINEAR_KD 0
 #define TRACKING_KP 60		 // point tracking turning strength
-#define ANGULAR_KP 1
-#define ANGULAR_KI 0
-#define ANGULAR_KD 0
-#define MIN_ERROR 5          // Minimum distance to target before angular componenet is disabled
+#define ANGULAR_KP 1.5
+#define ANGULAR_KI 1.6
+#define ANGULAR_KD 1
+#define MIN_ERROR 4          // Minimum distance to target before angular componenet is disabled
 #define LEAD_PCT .6			 // Go-to-pose lead distance ratio (0-1)
 
 // Auton selector configuration constants

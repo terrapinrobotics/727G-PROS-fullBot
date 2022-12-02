@@ -12,6 +12,8 @@ extern double maxSpeed;
 extern std::shared_ptr<pros::Motor_Group> leftMotors;
 extern std::shared_ptr<pros::Motor_Group> rightMotors;
 
+extern bool chassisTaskEnabled;
+
 /**
  * Set the brake mode for all chassis motors
  */
@@ -74,12 +76,6 @@ void tank(double left, double right, bool velocity = false);
  * Assign a vertical and horizontal power to the motors
  */
 void arcade(double vertical, double horizontal, bool velocity = false);
-
-/*
-727G Custom Function to enable strafing!
-*/
-void disableChassisTask(void);
-void enableChassisTask(void);
 
 /**
  * initialize the chassis
