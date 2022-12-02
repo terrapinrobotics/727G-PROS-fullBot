@@ -39,7 +39,7 @@ namespace arms {
 #define LINEAR_KI 0
 #define LINEAR_KD 0
 #define TRACKING_KP 60		 // point tracking turning strength
-#define ANGULAR_KP 1.5
+#define ANGULAR_KP 1.5 // too high kP causes overshoot
 #define ANGULAR_KI 1.6
 #define ANGULAR_KD 1
 #define MIN_ERROR 4          // Minimum distance to target before angular componenet is disabled
