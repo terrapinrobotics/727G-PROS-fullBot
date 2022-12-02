@@ -1,4 +1,5 @@
 #include "main.h"
+#include "ARMS/chassis.h"
 #include "arms/config.h"
 
 #define FLYWHEEL_SPEED 100
@@ -52,7 +53,8 @@ void autonomous() {
 
 void opcontrol() {
 	// disable ARMS PID during opcontrol! (allows use of PROS motors)
-	arms::pid::mode = DISABLE;
+	// this is a custom 727G function I added to ARMS for our specific use case
+	arms::chassis::disableChassisTask();
 
 	// create drive motors!
 	pros::Motor FL_mtr = pros::Motor(4, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);

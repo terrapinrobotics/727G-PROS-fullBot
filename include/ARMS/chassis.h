@@ -75,6 +75,12 @@ void tank(double left, double right, bool velocity = false);
  */
 void arcade(double vertical, double horizontal, bool velocity = false);
 
+/*
+727G Custom Function to enable strafing!
+*/
+void disableChassisTask(void);
+void enableChassisTask(void);
+
 /**
  * initialize the chassis
  */
