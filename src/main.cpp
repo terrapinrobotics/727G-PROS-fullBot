@@ -2,7 +2,7 @@
 #include "ARMS/chassis.h"
 #include "arms/config.h"
 
-#define FLYWHEEL_SPEED 100
+#define FLYWHEEL_SPEED 127
 
 LV_IMG_DECLARE(stretched_dog);
 
@@ -105,9 +105,9 @@ void opcontrol() {
 
 		// intake
 		if (master.get_digital(DIGITAL_R2)) {
-			intake = 100;
+			intake = 127;
 		} else if (master.get_digital(DIGITAL_R1)) {
-			intake = -100;
+			intake = -127;
 		} else {
 			intake.brake();
 		}
