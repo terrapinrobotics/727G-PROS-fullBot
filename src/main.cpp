@@ -75,10 +75,6 @@ void opcontrol() {
 	uint32_t last_press_indexer = 0;
 	bool indexer_state = false;
 
-	// expansions [a, b]
-	uint32_t last_press_expansions[2] = {0, 0};
-	bool expansion_state[2] = {false, false};
-
 	while (true) {
 
 		// fire discs when L1!
@@ -97,26 +93,7 @@ void opcontrol() {
 		// expansion pneumatics
         if (master.get_digital(DIGITAL_A)) {
 			expansion_left.set_value(1);
-			expansion_state[0] = true;
-			last_press_expansions[0] = pros::millis();
-		}
-
-		if (master.get_digital(DIGITAL_X)) {
 			expansion_right.set_value(1);
-			expansion_state[1] = true;
-			last_press_expansions[1] = pros::millis();
-		}
-
-		if (expansion_state[0] && pros::millis() - last_press_expansions[0] > 100) {
-			// if >100 ms have passed
-			expansion_left.set_value(0);
-			expansion_state[0] = false;
-		}
-
-		if (expansion_state[1] && pros::millis() - last_press_expansions[1] > 100) {
-			// if >100 ms have passed
-			expansion_right.set_value(0);
-			expansion_state[1] = false;
 		}
 
 		// flywheel
