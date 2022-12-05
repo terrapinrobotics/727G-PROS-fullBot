@@ -105,9 +105,9 @@ void opcontrol() {
 
 		// intake
 		if (master.get_digital(DIGITAL_R2)) {
-			intake = 127;
+			intake.move_voltage(12000);
 		} else if (master.get_digital(DIGITAL_R1)) {
-			intake = -127;
+			intake.move_voltage(-12000);
 		} else {
 			intake.brake();
 		}
@@ -121,8 +121,6 @@ void opcontrol() {
 		BL_mtr = (axis3 + axis1 - axis4);
 		FR_mtr = (axis3 - axis1 - axis4);
 		BR_mtr = (axis3 - axis1 + axis4);
-
-		std::cout << "FL: " << (axis3+axis1+axis4) << std::endl;
 
 		pros::delay(20);
 	}
