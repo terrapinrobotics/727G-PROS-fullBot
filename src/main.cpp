@@ -23,9 +23,7 @@ void initialize() {
 
 	// flywheel
 	flywheel.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
-
-	// intake
-	intake.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
+	intake.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
 }
 
 /**
@@ -48,6 +46,7 @@ void competition_initialize() {}
 
 
 void autonomous() {
+	arms::odom::reset({0, 0}, 0);
 	autons::capybara_run();
 }
 

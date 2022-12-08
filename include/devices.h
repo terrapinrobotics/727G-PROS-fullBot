@@ -14,7 +14,7 @@ extern pros::Motor BR_mtr;
 
 extern pros::Motor_Group flywheel;
 
-extern pros::Motor intake;
+extern pros::Motor_Group intake;
 
 extern pros::ADIDigitalOut indexer;
 extern pros::ADIDigitalOut expansion_left;

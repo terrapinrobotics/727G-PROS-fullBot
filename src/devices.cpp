@@ -1,5 +1,6 @@
 #include "devices.h"
 #include "pros/motors.h"
+#include "pros/motors.hpp"
 
 // our controller
 pros::Controller master = pros::Controller(pros::E_CONTROLLER_MASTER);
@@ -17,8 +18,9 @@ pros::Motor flywheel_B = pros::Motor(7, pros::motor_gearset_e_t::E_MOTOR_GEARSET
 pros::Motor_Group flywheel = pros::Motor_Group({flywheel_A, flywheel_B});
 
 // intake
-pros::Motor intake = pros::Motor(6, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true, pros::motor_encoder_units_e_t::E_MOTOR_ENCODER_DEGREES);
-
+pros::Motor intake_A = pros::Motor(6, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true, pros::motor_encoder_units_e_t::E_MOTOR_ENCODER_DEGREES);
+pros::Motor intake_B = pros::Motor(9, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true, pros::motor_encoder_units_e_t::E_MOTOR_ENCODER_DEGREES);
+pros::Motor_Group intake = pros::Motor_Group({intake_A, intake_B});
 // pneumatics
 pros::ADIDigitalOut indexer = pros::ADIDigitalOut('A');
 pros::ADIDigitalOut expansion_left = pros::ADIDigitalOut('B');
