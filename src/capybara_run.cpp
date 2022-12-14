@@ -11,7 +11,10 @@ void autons::capybara_run() {
 	// combine with |
 	// example: arms::chassis::move({5, 8}, ASYNC | THRU); (coord (5, 8), async, no PID)
 
-    arms::chassis::move({5, 5, 90});
+    //arms::chassis::move({0, 0, 90});
+    //arms::chassis::turn(90);
+    //arms::chassis::move(840);
+    //arms::chassis::turn(90);
 
     // start of real auton
 

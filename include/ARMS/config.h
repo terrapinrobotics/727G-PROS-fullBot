@@ -30,19 +30,19 @@ namespace arms {
 
 // Movement tuning
 #define SLEW_STEP 8          // Smaller number = more slew
-#define LINEAR_EXIT_ERROR 1  // default exit distance for linear movements
+#define LINEAR_EXIT_ERROR 4  // default exit distance for linear movements
 #define ANGULAR_EXIT_ERROR 1 // default exit distance for angular movements
 #define SETTLE_THRESH_LINEAR .5      // amount of linear movement for settling
 #define SETTLE_THRESH_ANGULAR 1      // amount of angular movement for settling
 #define SETTLE_TIME 250      // amount of time to count as settled - up for oscillation (250 default)
-#define LINEAR_KP 1
+#define LINEAR_KP 0.25
 #define LINEAR_KI 0
-#define LINEAR_KD 0 
+#define LINEAR_KD 2
 #define TRACKING_KP 60		 // point tracking turning strength
-#define ANGULAR_KP 2.37 // too high kP causes overshoot (2.37 good)
+#define ANGULAR_KP 4.2 // too high kP causes overshoot (2.37 good)
 #define ANGULAR_KI 0
-#define ANGULAR_KD 0
-#define MIN_ERROR 4          // Minimum distance to target before angular componenet is disabled
+#define ANGULAR_KD 20.8
+#define MIN_ERROR 12          // Minimum distance to target before angular componenet is disabled
 #define LEAD_PCT .6			 // Go-to-pose lead distance ratio (0-1)
 
 // Auton selector configuration constants
