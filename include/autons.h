@@ -6,9 +6,7 @@ namespace autons {
     void capybara_run(void);
 }
 
-namespace auton_functions {
-    // auton functions
-    void spin_intake(int, int);
-}
+void spin_intake(int, int);
+void spin_flywheel(int);
 
 #endif

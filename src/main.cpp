@@ -4,17 +4,17 @@
 
 #define FLYWHEEL_SPEED 127
 
-LV_IMG_DECLARE(stretched_dog);
+//LV_IMG_DECLARE(stretched_dog);
 
-void displayImage() {
+/*void displayImage() {
   lv_obj_t * img1 = lv_img_create(lv_scr_act(), NULL);
   lv_img_set_src(img1, &stretched_dog);
   lv_obj_align(img1, NULL, LV_ALIGN_CENTER, 0, 0);
-}
+}*/
 
 void initialize() {
 	// cedric kat and hailley are to blame for this
-	displayImage();
+	//displayImage();
 
 	// reset our inertial!
 	inertial.reset();
