@@ -5,13 +5,13 @@ using namespace okapi::literals;
 
 std::shared_ptr<okapi::ChassisController> chassis;
 
-const double lin_kP = 0.05;
+const double lin_kP = 0.00232;
 const double lin_kI = 0;
-const double lin_kD = 0;
+const double lin_kD = 0.00019789;
 
-const double ang_kP = 0;
+const double ang_kP = 0.0033;
 const double ang_kI = 0;
-const double ang_kD = 0;
+const double ang_kD = 0.000069;
 
 void autons::init() {
     chassis = okapi::ChassisControllerBuilder()

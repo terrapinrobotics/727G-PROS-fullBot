@@ -12,5 +12,8 @@ void autons::capybara_run() {
 	// combine with |
 	// example: arms::chassis::move({5, 8}, ASYNC | THRU); (coord (5, 8), async, no PID)
 
-    chassis->moveDistance(8_in);
+    //chassis->moveDistance(10_in);
+	//chassis->turnAngle(90_deg);
+	dnc::turn(90, true);
+    //chassis->moveDistance(-10_in);
 }

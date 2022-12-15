@@ -9,6 +9,10 @@ namespace autons {
     void capybara_run(void);
 }
 
+namespace dnc {
+    void turn(float, bool);
+}
+
 void spin_intake(int, int);
 void spin_flywheel(int);
 
