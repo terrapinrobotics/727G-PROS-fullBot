@@ -35,8 +35,9 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
-#include "ARMS/api.h"
+//#include "ARMS/api.h"
 #include "devices.h"
+#include "okapi/api.hpp"
 #include "pros/apix.h"
 #include "autons.h"
 

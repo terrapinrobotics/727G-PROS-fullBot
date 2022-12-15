@@ -1,7 +1,7 @@
-#include "ARMS/flags.h"
 #include "autons.h"
 #include "main.h"
 
+using namespace okapi::literals;
 
 void autons::capybara_run() {
     // guide on ARMS:
@@ -12,5 +12,5 @@ void autons::capybara_run() {
 	// combine with |
 	// example: arms::chassis::move({5, 8}, ASYNC | THRU); (coord (5, 8), async, no PID)
 
-    arms::chassis::move(-220, arms::RELATIVE);
+    chassis->moveDistance(8_in);
 }

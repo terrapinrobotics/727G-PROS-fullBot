@@ -19,7 +19,10 @@ void initialize() {
 	// reset our inertial!
 	inertial.reset();
 
-	arms::init();
+	autons::init();
+
+	//arms::init();
+
 
 	// flywheel
 	flywheel.set_brake_modes(pros::E_MOTOR_BRAKE_COAST);
@@ -46,14 +49,14 @@ void competition_initialize() {}
 
 
 void autonomous() {
-	arms::odom::reset({0, 0}, 0);
+	//arms::odom::reset({0, 0}, 0);
 	autons::capybara_run();
 }
 
 void opcontrol() {
 	// disable ARMS PID during opcontrol! (allows use of PROS motors)
 	// this is a custom 727G function I added to ARMS for our specific use case
-	arms::chassis::chassisTaskEnabled = false;
+	//arms::chassis::chassisTaskEnabled = false;
 
 	// create drive motors!
 	pros::Motor FL_mtr = pros::Motor(4, pros::motor_gearset_e_t::E_MOTOR_GEARSET_18, true);
